@@ -223,7 +223,7 @@ export function toPdf(res, { photo, title = '' } = {}) {
     const cid = add(`<< /Length ${s.length} >>\nstream\n${s}endstream`);
     kids.push(add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${num(res.W)} ${num(res.H)}] /Resources ${res0} /Contents ${cid} 0 R >>`));
   }
-  const info = add(`<< /Title ${hex(clean(title))} /Creator ${hex('Exact Resume')} >>`);
+  const info = add(`<< /Title ${hex(clean(title))} /Creator ${hex('Resume Passport')} >>`);
   objs[0] = [enc('<< /Type /Catalog /Pages 2 0 R >>')];
   objs[1] = [enc(`<< /Type /Pages /Count ${kids.length} /Kids [${kids.map(k => `${k} 0 R`).join(' ')}] >>`)];
   const parts = [enc('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n')]; let off = parts[0].length; const xref = [];

@@ -2,7 +2,7 @@ import { COUNTRIES, getRule, SAMPLE } from './rules.js';
 import { layout, toPdf, sampleDate, clean } from './layout.js';
 
 const $ = id => document.getElementById(id);
-const KEY = 'exact-resume-v1';
+const KEY = 'resume-passport-v1';
 const BLANK = () => ({ name: '', title: '', email: '', phone: '', city: '', links: '', summary: '', skills: '', certs: '', langs: '', dob: '', nationality: '', visa: '', licence: '', exp: [], edu: [], projects: [], referees: [] });
 const NEW = { exp: { role: '', org: '', place: '', from: '', to: '', now: false, points: '' }, edu: { degree: '', org: '', place: '', from: '', to: '', score: '' }, projects: { name: '', link: '', points: '' }, referees: { name: '', role: '', contact: '' } };
 const params = new URLSearchParams(location.search);
@@ -124,7 +124,7 @@ function svgPage(ops, res) {
 function stampSvg(res, r) {
   const fit = !res.over, col = fit ? '#11205C' : '#C92A22', big = fit ? 'FITS' : 'OVER';
   const line = `${res.count} PAGE${res.count > 1 ? 'S' : ''} · ${r.paper === 'Letter' ? 'LETTER' : 'A4'}`;
-  const around = `${r.name.toUpperCase()} · EXACT RESUME · `;
+  const around = `${r.name.toUpperCase()} · RESUME PASSPORT · `;
   return `<svg class="stamp thud" viewBox="0 0 150 150" aria-hidden="true"><defs><path id="ring" d="M75 75m-55 0a55 55 0 1 1 110 0a55 55 0 1 1-110 0"/></defs><g fill="none" stroke="${col}"><circle cx="75" cy="75" r="71" stroke-width="3.5"/><circle cx="75" cy="75" r="46" stroke-width="2"/></g><text fill="${col}" font-family="'DM Mono',monospace" font-weight="500" font-size="11.5" textLength="338" lengthAdjust="spacing"><textPath href="#ring">${esc(around)}</textPath></text><text x="75" y="77" text-anchor="middle" fill="${col}" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="29" style="font-stretch:125%" letter-spacing="-.5">${big}</text><text x="75" y="92" text-anchor="middle" fill="${col}" font-family="'DM Mono',monospace" font-weight="500" font-size="8">${line}</text></svg>`;
 }
 let lastThud = '';
