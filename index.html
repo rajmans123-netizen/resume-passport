@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exact Resume</title>
+<meta name="description" content="Fill in your resume once and get it in the format each country expects. Free PDF, no sign-up, no payment, no watermark. Nothing leaves your phone.">
+<meta name="theme-color" content="#E4EEF9">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700;125,800&family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Arimo:wght@400;700&family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --sky: #E4EEF9; --paper: #FFFFFF; --ink: #11205C; --red: #C92A22; --muted: #46548A; --rule: #B5C8E4; --stripes: repeating-linear-gradient(-45deg, #D6322A 0 12px, #fff 12px 22px, #11205C 22px 34px, #fff 34px 44px); }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--sky); color: var(--ink); font: 400 16px/1.45 'Instrument Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.airmail { height: 10px; background: var(--stripes); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+header { padding: 18px 0 14px; }
+.mark { font: 500 13px 'DM Mono', monospace; letter-spacing: .02em; margin: 0 0 12px; }
+h1 { font: 800 clamp(33px, 6.4vw, 62px)/1 'Archivo', sans-serif; font-stretch: 125%; letter-spacing: -.035em; margin: 0 0 12px; max-width: 15em; }
+.lede { margin: 0; max-width: 37em; font-size: 17px; }
+
+.rail { display: flex; gap: 8px; overflow-x: auto; padding: 8px 16px 12px; margin: 6px -16px 0; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail label { flex: none; cursor: pointer; text-align: center; width: 76px; position: relative; }
+.rail input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.plate { display: flex; align-items: center; justify-content: center; height: 44px; background: var(--paper); border: 2.5px solid var(--ink); border-radius: 50%; font: 800 15px 'Archivo', sans-serif; font-stretch: 125%; transition: transform .12s; }
+.rail .nm { display: block; font-size: 12.5px; font-weight: 500; margin-top: 4px; line-height: 1.15; }
+.rail input:checked + .plate { background: var(--ink); color: #fff; }
+.rail input:focus-visible + .plate { outline: 3px solid var(--red); outline-offset: 2px; }
+.rail label:hover .plate { transform: translateY(-2px); }
+
+.seg { display: inline-flex; border: 2px solid var(--ink); border-radius: 9px; background: var(--paper); overflow: hidden; }
+.seg button { font: 600 14px 'Instrument Sans', sans-serif; color: var(--ink); background: none; border: 0; padding: 7px 13px; min-height: 38px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.modes { margin: 2px 0 12px; }
+
+.grid { display: grid; gap: 22px; grid-template-columns: minmax(0, 1fr); padding-bottom: 22px; }
+.tabs { display: flex; margin-bottom: 14px; }
+.tabs .seg { width: 100%; }
+.tabs button { flex: 1; }
+body[data-view="edit"] .stage { display: none; }
+body[data-view="preview"] .editor { display: none; }
+
+.expects { background: var(--paper); border-radius: 12px; padding: 14px 16px 12px; margin-bottom: 18px; }
+.expects h2 { font: 700 21px/1.15 'Archivo', sans-serif; font-stretch: 125%; letter-spacing: -.02em; margin: 0 0 8px; }
+.expects table { width: 100%; border-collapse: collapse; }
+.expects th { font: 400 13px 'DM Mono', monospace; text-align: left; padding: 5px 10px 5px 0; color: var(--muted); white-space: nowrap; vertical-align: top; }
+.expects td { font-weight: 600; font-size: 15px; padding: 4px 0; }
+.expects tr + tr th, .expects tr + tr td { border-top: 1px solid var(--rule); }
+.expects td.no { color: var(--red); }
+.note { font-size: 14.5px; margin: 10px 0 0; }
+details.src { font-size: 13.5px; margin-top: 8px; color: var(--muted); }
+details.src summary { cursor: pointer; min-height: 26px; }
+
+.card { background: var(--paper); border-radius: 12px; padding: 14px 16px 16px; margin-bottom: 12px; }
+.card > h2 { font: 700 19px/1.2 'Archivo', sans-serif; font-stretch: 125%; letter-spacing: -.02em; margin: 0 0 10px; }
+.asks { position: relative; padding-top: 22px; overflow: hidden; }
+.asks::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 8px; background: var(--stripes); }
+.f { display: block; margin-bottom: 11px; min-width: 0; }
+.f > span { display: block; font-weight: 600; font-size: 14.5px; margin-bottom: 3px; }
+.f small { font-weight: 400; color: var(--muted); }
+input[type=text], input[type=email], input[type=tel], input[type=date], input[type=month], textarea { display: block; width: 100%; min-width: 0; max-width: 100%; font: 400 16px/1.35 'Instrument Sans', sans-serif; color: var(--ink); background: #F5F8FD; border: 1.5px solid var(--rule); border-radius: 8px; padding: 9px 10px; min-height: 44px; }
+input::placeholder, textarea::placeholder { color: #7A87B0; }
+textarea { resize: vertical; min-height: 84px; }
+input:focus, textarea:focus { outline: none; border-color: var(--ink); background: #fff; box-shadow: 0 0 0 2px var(--ink); }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.check { display: flex; align-items: center; gap: 8px; font-size: 14.5px; min-height: 34px; cursor: pointer; }
+.check input { width: 19px; height: 19px; accent-color: var(--ink); margin: 0; }
+.item { border-top: 1.5px dashed var(--rule); padding-top: 12px; margin-top: 4px; }
+.item:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+.btn { font: 600 15px 'Instrument Sans', sans-serif; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); border-radius: 9px; padding: 8px 13px; min-height: 42px; cursor: pointer; }
+.btn:hover { background: var(--sky); }
+.link { font: 500 14px 'Instrument Sans', sans-serif; color: var(--red); background: none; border: 0; padding: 6px 0; min-height: 34px; cursor: pointer; text-decoration: underline; }
+.photo-row { display: flex; gap: 12px; align-items: center; margin-bottom: 11px; }
+.photo-row .thumb { width: 64px; height: 80px; border: 1.5px dashed var(--rule); border-radius: 6px; background: #F5F8FD center/cover no-repeat; flex: none; }
+.photo-row .thumb.has { border-style: solid; }
+.hint { font-size: 14px; color: var(--muted); margin: -3px 0 10px; }
+.clear { text-align: center; padding: 2px 0 10px; }
+
+.stage { position: relative; }
+.stagehead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin-bottom: 10px; }
+.dims { font: 500 13.5px 'DM Mono', monospace; margin: 0; }
+.seg.small button { padding: 4px 11px; min-height: 34px; font-size: 13.5px; }
+.papers { display: flex; flex-direction: column; align-items: center; gap: 14px; position: relative; padding-bottom: 52px; }
+.sheetwrap { width: 100%; position: relative; }
+.sheet { display: block; margin: 0 auto; height: auto; background: #fff; box-shadow: 0 1px 0 #fff inset, 0 2px 3px rgba(17,32,92,.14), 0 14px 34px rgba(17,32,92,.16); }
+.samplebar { font: 500 12.5px 'DM Mono', monospace; margin: 0 0 8px; color: var(--muted); }
+.stamp { position: absolute; right: -2px; bottom: -46px; width: clamp(104px, 27%, 138px); transform: rotate(-11deg); pointer-events: none; mix-blend-mode: multiply; }
+.stamp.thud { animation: thud .32s cubic-bezier(.2, 1.5, .4, 1) both; }
+@keyframes thud { from { opacity: 0; transform: rotate(-4deg) scale(1.7); } to { opacity: 1; transform: rotate(-11deg) scale(1); } }
+.warn { font-size: 14.5px; background: var(--paper); border-left: 5px solid var(--red); padding: 9px 12px; margin: 0 0 10px; border-radius: 0 8px 8px 0; }
+.dlwide { display: none; }
+
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; background: var(--paper); box-shadow: 0 -2px 14px rgba(17,32,92,.16); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; }
+.bar .meta { flex: 1; min-width: 0; font: 500 13px/1.25 'DM Mono', monospace; }
+.dl { font: 700 16px 'Instrument Sans', sans-serif; color: #fff; background: var(--red); border: 0; border-radius: 10px; padding: 12px 18px; min-height: 48px; cursor: pointer; white-space: nowrap; }
+.dl:hover { background: #A9211B; }
+.dl:disabled { background: #8E98BC; cursor: not-allowed; }
+.inapp { margin: 0 0 14px; padding: 10px 12px; background: var(--ink); color: #fff; font-size: 15px; border-radius: 8px; }
+.toast { position: fixed; left: 50%; bottom: 92px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 9px 14px; border-radius: 8px; font-size: 14.5px; z-index: 9; max-width: calc(100% - 32px); }
+footer { font-size: 14px; color: var(--muted); padding: 0 0 calc(92px + env(safe-area-inset-bottom)); }
+footer p { margin: 0 0 8px; max-width: 46em; }
+
+@media (min-width: 960px) {
+  .rail { flex-wrap: wrap; overflow: visible; margin: 6px 0 0; padding: 8px 0 12px; }
+  .tabs, .bar { display: none; }
+  footer { padding-bottom: 24px; }
+  .grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 34px; padding-bottom: 30px; align-items: start; }
+  body[data-view] .stage, body[data-view] .editor { display: block; }
+  .stage { position: sticky; top: 14px; max-height: calc(100vh - 28px); overflow: auto; padding: 4px 14px 18px 4px; }
+  .dlwide { display: block; width: 100%; margin-bottom: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body data-view="edit">
+<div class="airmail"></div>
+<div class="wrap">
+  <header>
+    <p class="mark">Exact Resume</p>
+    <h1>Fill it once. Send it to any country.</h1>
+    <p class="lede">Pick a country and your resume changes to what employers there expect. Free PDF with no sign-up, no payment and no watermark. Nothing leaves your phone.</p>
+  </header>
+  <p class="inapp" id="inapp" hidden>Downloads often fail inside Instagram. Open the ⋯ menu at the top and choose to open this page in your browser.</p>
+  <div class="rail" id="rail" role="radiogroup" aria-label="Country"></div>
+  <div class="modes" id="modes" hidden>
+    <div class="seg" role="group" aria-label="Type of job in India"><button type="button" data-gov="0">Private company</button><button type="button" data-gov="1">Government or PSU</button></div>
+  </div>
+  <div class="tabs"><div class="seg" role="group" aria-label="View"><button type="button" data-view="edit">Your details</button><button type="button" data-view="preview">Preview</button></div></div>
+
+  <main class="grid">
+    <section class="editor" aria-label="Your details">
+      <div class="expects" id="expects"></div>
+
+      <div class="card"><h2>Contact</h2>
+        <label class="f"><span>Full name</span><input type="text" data-f="name" autocomplete="name" placeholder="Ananya Kulkarni"></label>
+        <label class="f"><span>Job title <small>the role you want</small></span><input type="text" data-f="title" placeholder="Data Analyst"></label>
+        <div class="two">
+          <label class="f"><span>Email</span><input type="email" data-f="email" autocomplete="email" placeholder="you@email.com"></label>
+          <label class="f"><span>Phone</span><input type="tel" data-f="phone" autocomplete="tel" placeholder="+91 98765 43210"></label>
+        </div>
+        <label class="f"><span>City and country</span><input type="text" data-f="city" placeholder="Pune, India"></label>
+        <label class="f"><span>Links <small>LinkedIn, GitHub, portfolio</small></span><input type="text" data-f="links" placeholder="linkedin.com/in/yourname"></label>
+      </div>
+
+      <div class="card asks" id="asks">
+        <h2 id="asksh"></h2>
+        <div data-need="photo">
+          <div class="photo-row"><div class="thumb" id="thumb"></div><div>
+            <button type="button" class="btn" id="pickphoto">Add a photo</button> <button type="button" class="link" id="rmphoto" hidden>Remove</button>
+            <input type="file" id="photofile" accept="image/*" hidden>
+          </div></div>
+          <label class="check" id="nophotow"><input type="checkbox" id="nophoto"> Leave the photo out</label>
+        </div>
+        <label class="f" data-need="dob"><span>Date of birth</span><input type="date" data-f="dob"></label>
+        <label class="f" data-need="nationality"><span>Nationality</span><input type="text" data-f="nationality" placeholder="Indian"></label>
+        <label class="f" data-need="visa"><span id="visal">Visa status</span><input type="text" data-f="visa" placeholder="Needs a work visa"></label>
+        <label class="f" data-need="licence"><span>Driving licence</span><input type="text" data-f="licence" placeholder="Indian driving licence"></label>
+        <div data-need="referees"><div id="referees"></div><button type="button" class="btn" data-add="referees">Add a referee</button></div>
+        <label class="check" data-need="german"><input type="checkbox" id="german"> Use German section headings</label>
+      </div>
+
+      <div class="card"><h2>Summary</h2>
+        <label class="f"><span>Two or three lines about you</span><textarea data-f="summary" placeholder="Data analyst with three years of experience turning messy sales data into reports that teams use."></textarea></label>
+      </div>
+      <div class="card"><h2>Experience</h2>
+        <p class="hint">Add jobs in any order. They're sorted newest first. No work history yet? Skip this and education comes first.</p>
+        <div id="exp"></div><button type="button" class="btn" data-add="exp">Add a job</button>
+      </div>
+      <div class="card"><h2>Education</h2><div id="edu"></div><button type="button" class="btn" data-add="edu">Add education</button></div>
+      <div class="card"><h2>Skills</h2>
+        <label class="f"><span>One group per line</span><textarea data-f="skills" placeholder="SQL, Python, Power BI, Excel"></textarea></label>
+      </div>
+      <div class="card"><h2>Projects</h2><div id="projects"></div><button type="button" class="btn" data-add="projects">Add a project</button></div>
+      <div class="card"><h2>Certifications and languages</h2>
+        <label class="f"><span>Certifications <small>one per line</small></span><textarea data-f="certs" placeholder="Microsoft Power BI Data Analyst"></textarea></label>
+        <label class="f"><span>Languages <small>add levels if you can</small></span><textarea data-f="langs" placeholder="English (fluent), Hindi (native)"></textarea></label>
+      </div>
+      <p class="clear"><button type="button" class="link" id="clearall">Clear everything</button></p>
+    </section>
+
+    <section class="stage" aria-label="Preview">
+      <button type="button" class="dl dlwide" data-dl>Download PDF</button>
+      <div class="stagehead">
+        <p class="dims" id="dims"></p>
+        <div class="seg small" role="group" aria-label="Font"><button type="button" data-font="sans">Sans</button><button type="button" data-font="serif">Serif</button></div>
+      </div>
+      <div id="warns"></div>
+      <p class="samplebar" id="samplebar">Sample resume. It becomes yours as you type.</p>
+      <div class="papers" id="papers"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>These formats are common practice from career services and recruiters, not laws, and advice varies. If the job ad or notice asks for something else, follow that.</p>
+    <p>Your details are saved only on this device so you can come back to them. Built with Claude by <a href="https://instagram.com/raj_triess">Raj Tries</a>.</p>
+  </footer>
+</div>
+<div class="bar"><div class="meta" id="barmeta" role="status"></div><button type="button" class="dl" data-dl>Download PDF</button></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
